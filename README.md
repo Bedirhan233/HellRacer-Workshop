@@ -65,8 +65,6 @@ Here is how I made the rotation logic.
 
 void UCarMovementComponent::RotateMovement(float InputValue, AActor* WorldMesh)
 {
-	float AlphaRotationSpeedLow = 0.05;
-	float AlphaRotationSpeedHigh = 0.01;
 	float DefaultWorldRotateSpeed = 100;
 
 	bIsRotating = true;
@@ -92,13 +90,11 @@ void UCarMovementComponent::RotateMovement(float InputValue, AActor* WorldMesh)
 	{
 		if (CurrentVelocity.Length() <= MinimumSpeedToRotateInNormalSpeed && bIsDrifting == false)
 		{
-			WorldRotateAlpha += AlphaRotationSpeedLow * GetWorld()->GetDeltaSeconds();
 			WorldRotateSpeed = FMath::Lerp(WorldRotateSpeed, SetWorldRotationLowSpeed, WorldRotateAlpha);
 		}
 
 		if (CurrentVelocity.Length() > MinimumSpeedToRotateInNormalSpeed && bIsDrifting == false)
 		{
-			WorldRotateAlpha += AlphaRotationSpeedHigh * GetWorld()->GetDeltaSeconds();
 			WorldRotateSpeed = FMath::Lerp(WorldRotateSpeed, SetWorldRotationHighSpeed, WorldRotateAlpha);
 		}
 	}
