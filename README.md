@@ -1,10 +1,13 @@
 # HellRacer-Workshop
+![image](https://github.com/user-attachments/assets/5107e2eb-72b2-4d48-b820-dae4a683f4fa)
 ![image](https://github.com/user-attachments/assets/0bdfd15f-4b56-423c-9e26-44cf783dde0b)
 ![image](https://github.com/user-attachments/assets/aab07311-232d-4e1e-8d6f-233f7d766c89)
 
 
 Hello HellRacer is a race game where players race against their own ghost which represents their best time. 
 We made the game in unreal engine with C++. I had watched some videos for learning C++ but i cant say that i had enough knowledge for participate in making a race game. It was mostly the knowledge i had before and ChatGbt.
+
+
 
 My responsibility was the car movement system. First I had no idea where to start then with some youtube videos made a simple movement class based on Character class. But it was based on Unreal´s character movement component, I wanted to make a custom movement system from scratch. With some research on internet I started to create a new movement based on pawn. However, creating from pawn have some disadvantages, there were no physic. Of course with some work I could make a simple custom physic system. But it was too stressfull then and I wasn´t so sure about if I could do it before we run out of time so I went back to character movement. 
 
