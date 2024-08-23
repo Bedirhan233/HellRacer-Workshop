@@ -1,10 +1,60 @@
 # HellRacer-Workshop
 
-Hello HellRacer is a race game where you play against your ghost which is the best time that is saved in your game. 
-We made the game in unreal engine with c++. I had watched some videos for learning c++ but i cant say that  i could c++ before. It was mostly the knowledge i had before from unity and chat gbt that helped me. 
+Hello HellRacer is a race game where players race against their own ghost which represents their best time. 
+We made the game in unreal engine with C++. I had watched some videos for learning C++ but i cant say that i had enough knowledge for participate in making a race game. It was mostly the knowledge i had before and ChatGbt.
 
-My area of responsibility was car movement. First I had no idea where to start then with some youtube vieos i made a simple movement class based on Character. After 2 week i made a simple movement but i wanted to try other methods too. One of them was make a new movement class based on pawn. But i didnt like any other then character movement because the other ones didnt had any physic. I could of course create a physic logic but I thought it would be too stressfull to do that and the car movement in just 8 weeks. Thats why i deleted all new methods and went back to the first one. 
+My responsibility was the car movement system. First I had no idea where to start then with some youtube videos made a simple movement class based on Character class. But it was based on Unreal´s character movement component, I wanted to make a custom movement system from scratch. With some research on internet I started to create a new movement based on pawn. However, creating from pawn have some disadvantages, there were no physic. Of course with some work I could make a simple custom physic system. But it was too stressfull then and I wasn´t so sure about if I could do it before we run out of time so I went back to character movement. 
 
-We decided as programmer to make a main class for the car and attach all other scripts to that, movement, drift, particle and other stuff. I made the Car movement seperatly, functions for each thing. All my logic was based on characterMovement values. But i had a big problem. Whenever the car was in move and you relased the accelerate button and rotated the car, it kept the old rotation and moved that direction which gave a slide effect. That was not what I wanted but I couldnt find the problem either. Instead I kept the input at 1 and made a separate function for brake. 
+We decided as programmer to make a main class for the car and attach all other scripts to that, movement, drift, particle and other stuff. All my moving logic was based on character movement component values. But there was a big problem. Whenever you rotated the car during the deacceleration, it started to slide away like if it was on ice. I gave 1 week to find a solution but couldn´t even find the problem itself. Instead I cheated a bit. By making a custom logic for velocity that forces it to interpolate to a lower value I got the effect I wanted. 
 
-For animations I didnt really knew where to start but after some exploration I found a workflow. I made animinstances.
+
+Here is how i made the acceleration logic. 
+<details>
+  <summary>Click to expand</summary>
+  
+```csharp
+void UCarMovementComponent::AccelerateMovement(float InputValue, bool bIsAccelerating)
+{
+
+      // this is the variable I use later in main class to set the input movement
+	CurrentAccelerationForInput = FMath::Lerp(CurrentAccelerationForInput, 1, AccelerateUpSpeed);
+      // I use this bool to prevent rotate smoothly when driving reverse.
+	isRotatingSmooth = true;
+
+	CharacterMovementComponent->MaxAcceleration = SetMaxAcceleration;
+	CharacterMovementComponent->BrakingFrictionFactor = BrakeFriction;
+	CharacterMovementComponent->MaxWalkSpeed = CurrentTopSpeed;
+
+	if (AccelerationFromCharacter > SetMaxAcceleration)
+	{
+		AccelerationFromCharacter = SetMaxAcceleration;
+	}
+
+	if (CurrentSpeed < MinimumSpeedToRotateInNormalSpeed && InputValue == 1)
+	{
+		WorldRotateAlpha += 0.05 * GetWorld()->GetDeltaSeconds();
+	}
+	else if (CurrentSpeed > MinimumSpeedToRotateInNormalSpeed && InputValue == 1)
+	{
+		WorldRotateAlpha += 0.01 * GetWorld()->GetDeltaSeconds();
+	}
+
+	if (WorldRotateAlpha > 1)
+	{
+		WorldRotateAlpha = 1;
+	}
+
+
+	if (bIsAccelerating)
+	{
+		AccelerationFromCharacter += InputValue * AccelerationSpeed * GetWorld()->GetDeltaSeconds();
+	}
+	else
+	{
+		AccelerationFromCharacter -= InputValue * AccelerationSpeed * GetWorld()->GetDeltaSeconds();
+	}
+
+        CharacterMovementComponent->MaxAcceleration = AccelerationFromCharacter;
+}
+```
+</details>
