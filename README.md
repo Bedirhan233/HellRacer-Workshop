@@ -5,6 +5,8 @@ We made the game in unreal engine with C++. I had watched some videos for learni
 
 My responsibility was the car movement system. First I had no idea where to start then with some youtube videos made a simple movement class based on Character class. But it was based on Unreal´s character movement component, I wanted to make a custom movement system from scratch. With some research on internet I started to create a new movement based on pawn. However, creating from pawn have some disadvantages, there were no physic. Of course with some work I could make a simple custom physic system. But it was too stressfull then and I wasn´t so sure about if I could do it before we run out of time so I went back to character movement. 
 
+# Car Movement
+
 We decided as programmer to make a main class for the car and attach all other scripts to that, movement, drift, particle and other stuff. All my moving logic was based on character movement component values. But there was a big problem. Whenever you rotated the car during the deacceleration, it started to slide away like if it was on ice. I gave 1 week to find a solution but couldn´t even find the problem itself. Instead I cheated a bit. By making a custom logic for velocity that forces it to interpolate to a lower value I got the effect I wanted. 
 
 
@@ -104,3 +106,19 @@ void UCarMovementComponent::RotateMovement(float InputValue, AActor* WorldMesh)
 }
 ```
 </details>
+
+# Animations
+
+I love to making systems for animations so I am happy that I got that part of the project. We had some small lessons how to make animation system in Unreal but now it was something bigger. With some research and collabration with graphic artists from our group I made a system for the animations. 
+
+For the wheels I used the transform nodes inside animation blueprint. As you can see I manipulate the rotations of the wheels with them. 
+
+![image](https://github.com/user-attachments/assets/ede39612-c085-4694-a1e2-1f57fac1ed9f)
+
+
+Then for other animations I made a state machine system where I switch them on/off with my bools.
+
+![image](https://github.com/user-attachments/assets/98a39e88-4e9c-4345-90d9-9dc111b8e859)
+
+
+![image](https://github.com/user-attachments/assets/0145ffaf-3924-46a9-a2b6-5a0fd5dae9d7)
