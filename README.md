@@ -11,7 +11,10 @@ We decided as programmer to make a main class for the car and attach all other s
 Here you can see the how the car slides away.
 ![GIF 2024-08-23 16-25-03](https://github.com/user-attachments/assets/98a1d669-53b8-40a6-ba4c-83dad8001524)
 
-Here is how i made the acceleration logic. 
+Here is how I made the acceleration logic.
+
+![GIF 2024-08-23 18-02-20](https://github.com/user-attachments/assets/6b56f62c-9ff1-4313-acb9-f0f95c1dd90c)
+
 <details>
   <summary>Click to expand</summary>
   
@@ -47,6 +50,8 @@ void UCarMovementComponent::AccelerateMovement(float InputValue, bool bCanApplyA
 ```
 </details>
 
+Here is how I made the rotation logic.
+![GIF 2024-08-23 18-04-58](https://github.com/user-attachments/assets/5403b64c-4d62-4d5d-9db0-bef5fc87b011)
 
 <details>
   <summary>Click to expand</summary>
