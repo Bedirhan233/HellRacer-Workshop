@@ -1,4 +1,7 @@
 # HellRacer-Workshop
+![image](https://github.com/user-attachments/assets/0bdfd15f-4b56-423c-9e26-44cf783dde0b)
+![image](https://github.com/user-attachments/assets/aab07311-232d-4e1e-8d6f-233f7d766c89)
+
 
 Hello HellRacer is a race game where players race against their own ghost which represents their best time. 
 We made the game in unreal engine with C++. I had watched some videos for learning C++ but i cant say that i had enough knowledge for participate in making a race game. It was mostly the knowledge i had before and ChatGbt.
