@@ -17,7 +17,10 @@ We decided as programmer to make a main class for the car and attach all other s
 
 
 Here you can see the how the car slides away.
-![GIF 2024-08-23 16-25-03](https://github.com/user-attachments/assets/98a1d669-53b8-40a6-ba4c-83dad8001524)
+
+![360961077-98a1d669-53b8-40a6-ba4c-83dad8001524-ezgif com-resize](https://github.com/user-attachments/assets/d064b83a-e05b-4b44-a81c-a9b9fbcb18d0)
+
+
 
 Here is how I made the acceleration logic.
 
