@@ -1,7 +1,6 @@
 # HellRacer-Workshop
 ![image](https://github.com/user-attachments/assets/5107e2eb-72b2-4d48-b820-dae4a683f4fa)
 ![image](https://github.com/user-attachments/assets/0bdfd15f-4b56-423c-9e26-44cf783dde0b)
-![image](https://github.com/user-attachments/assets/aab07311-232d-4e1e-8d6f-233f7d766c89)
 
 
 Hello HellRacer is a race game where players race against their own ghost which represents their best time. 
@@ -24,7 +23,8 @@ Here you can see the how the car slides away.
 
 Here is how I made the acceleration logic.
 
-![GIF 2024-08-23 18-02-20](https://github.com/user-attachments/assets/6b56f62c-9ff1-4313-acb9-f0f95c1dd90c)
+![ezgif-1-3e3e1da10e](https://github.com/user-attachments/assets/690f94ba-5148-409c-a2b9-4c8dd5212e1d)
+
 
 <details>
   <summary>Click to expand</summary>
@@ -62,7 +62,9 @@ void UCarMovementComponent::AccelerateMovement(float InputValue, bool bCanApplyA
 </details>
 
 Here is how I made the rotation logic.
-![GIF 2024-08-23 18-04-58](https://github.com/user-attachments/assets/5403b64c-4d62-4d5d-9db0-bef5fc87b011)
+
+
+![ezgif-1-a22238efe7](https://github.com/user-attachments/assets/f4d888f5-dcfc-4031-897a-508e9a20feb2)
 
 <details>
   <summary>Click to expand</summary>
