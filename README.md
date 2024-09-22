@@ -159,20 +159,66 @@ Then for other animations I made a state machine system where I switch them on/o
 
 ![image](https://github.com/user-attachments/assets/98a39e88-4e9c-4345-90d9-9dc111b8e859)
 
-Here you can see how I manipulate the bool.
+I changed the booleans in my script. Before showing you the boolean logic, I want to mention a problem I had. To detect if the car had hit something, I added a box collider as usual. However, whenever I pressed the play button in Unreal, the collision box just disappeared. After hours of trying, I gave up and decided to create my own 'collision box' by using a raycast from the car to detect if it hit something.
 <details>
-  <summary>Code for acceleration animation</summary>
+  <summary>Example of one of the bools</summary>
   
 ```csharp
 
-if (MovementComponent->CurrentSpeed < 300 && CarIsMovingForward && MovementComponent->bIsAccelerating)
+void ACharacterInput::CrashDetection()
+{
+	const float StartHeightOffset = 15.0f;
+	const float TraceDistance = 50.0f;
+	const float FeedbackIntensity = 0.4f;
+	const float FeedbackDuration = 0.3f;
+	const float SpeedThresholdForScreenShake = 600.0f;
+
+	bool bWasHitPreviously = bHitSomething;
+	FVector Start = CarMesh->GetComponentLocation() + FVector::UpVector * StartHeightOffset;
+	FVector End = Start + Direction * TraceDistance;
+
+	FHitResult Hit;
+	FCollisionQueryParams CollisionParams;
+	CollisionParams.AddIgnoredComponent(CarMesh);
+
+	bHitSomething = GetWorld()->LineTraceSingleByChannel(Hit, Start, End, ECC_Visibility, CollisionParams);
+	UKismetSystemLibrary::DrawDebugLine(GetWorld(), Start, End, FColor(255, 0, 0));
+
+	if (bHitSomething != bWasHitPreviously)
 	{
-		AnimInstance->isAccelerating = true;
+		if (bHitSomething)
+		{
+			AActor* HitActor = Hit.GetActor();
+			if (HitActor && HitActor->ActorHasTag(FName("Fence")))
+			{
+				if (AnimInstance)
+				{
+					AnimInstance->isCrashing = true;
+				}
+				bHasCrashed = true;
+
+				APlayerController* PlayerController = GetWorld()->GetFirstPlayerController();
+				if (PlayerController)
+				{
+					PlayerController->PlayDynamicForceFeedback(FeedbackIntensity, FeedbackDuration, true, true, true, true);
+				}
+
+				if (MovementComponent && MovementComponent->CurrentSpeed > SpeedThresholdForScreenShake)
+				{
+					StartScreenShake(2, 0.1);
+				}
+			}
+		}
+		else
+		{
+			if (AnimInstance)
+			{
+				AnimInstance->isCrashing = false;
+			}
+			bHasCrashed = false;
+		}
 	}
-	else if (MovementComponent->CurrentSpeed > 300 && CarIsMovingForward && MovementComponent->bIsAccelerating)
-	{
-		AnimInstance->isAccelerating = false;
-	}
+}
 
 ```
 </details>
