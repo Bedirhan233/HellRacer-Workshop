@@ -29,7 +29,7 @@ Here is how I made the acceleration logic.
 
 
 <details>
-  <summary>Click to expand</summary>
+  <summary>Code for acceleration</summary>
   
 ```csharp
 void UCarMovementComponent::AccelerateMovement(float InputValue, bool bCanApplyAcceleration)
@@ -69,7 +69,7 @@ Here is how I made the rotation logic.
 ![ezgif-1-a22238efe7](https://github.com/user-attachments/assets/f4d888f5-dcfc-4031-897a-508e9a20feb2)
 
 <details>
-  <summary>Click to expand</summary>
+  <summary>Here is the code for rotation</summary>
   
 ```csharp
 
@@ -124,12 +124,59 @@ For the wheels I used the transform nodes inside animation blueprint. As you can
 
 ![image](https://github.com/user-attachments/assets/ede39612-c085-4694-a1e2-1f57fac1ed9f)
 
+<details>
+  <summary>Code for Spinning the Wheel</summary>
+  
+```csharp
+void ACharacterInput::SpinWheel()
+{
+	if (bIsBrakingHard && !CarIsMovingBackWard)
+	{
+		return;
+	}
+
+	float SpeedReductionFactor = 10.0f;
+	float BaseSpinSpeed = 50.0f;
+	float AlphaValue = NormalizeMaxSpeed(MovementComponent->CurrentSpeed, MovementComponent->CurrentTopSpeed);
+
+	if (CarIsMovingBackWard)
+	{
+		BaseSpinSpeed /= SpeedReductionFactor;  // Corrected to adjust BaseSpinSpeed itself
+		AnimInstance->WheelSpeed += BaseSpinSpeed * AlphaValue;
+	}
+	else
+	{
+		AnimInstance->WheelSpeed -= BaseSpinSpeed * AlphaValue;
+	}
+
+	AnimInstance->WheelSpeed = FMath::Fmod(AnimInstance->WheelSpeed, 360.0f);
+}
+
+```
+</details>
 
 Then for other animations I made a state machine system where I switch them on/off with my bools.
 
 ![image](https://github.com/user-attachments/assets/98a39e88-4e9c-4345-90d9-9dc111b8e859)
 
+Here you can see how I manipulate the bool.
+<details>
+  <summary>Code for acceleration animation</summary>
+  
+```csharp
 
-![image](https://github.com/user-attachments/assets/0145ffaf-3924-46a9-a2b6-5a0fd5dae9d7)
+if (MovementComponent->CurrentSpeed < 300 && CarIsMovingForward && MovementComponent->bIsAccelerating)
+	{
+		AnimInstance->isAccelerating = true;
+	}
+	else if (MovementComponent->CurrentSpeed > 300 && CarIsMovingForward && MovementComponent->bIsAccelerating)
+	{
+		AnimInstance->isAccelerating = false;
+	}
+
+```
+</details>
+
+Thank you for reading!
 
 itch.io: https://yrgo-game-creator.itch.io/hellracer
