@@ -28,8 +28,7 @@ Here is how I made the acceleration logic.
 ![ezgif-1-3e3e1da10e](https://github.com/user-attachments/assets/690f94ba-5148-409c-a2b9-4c8dd5212e1d)
 
 
-<details>
-  <summary>Code for acceleration</summary>
+
   
 ```csharp
 void UCarMovementComponent::AccelerateMovement(float InputValue, bool bCanApplyAcceleration)
@@ -61,15 +60,14 @@ void UCarMovementComponent::AccelerateMovement(float InputValue, bool bCanApplyA
         CharacterMovementComponent->MaxAcceleration = AccelerationFromCharacter;
 }
 ```
-</details>
+
 
 Here is how I made the rotation logic.
 
 
 ![ezgif-1-a22238efe7](https://github.com/user-attachments/assets/f4d888f5-dcfc-4031-897a-508e9a20feb2)
 
-<details>
-  <summary>Here is the code for rotation</summary>
+
   
 ```csharp
 
@@ -114,7 +112,7 @@ void UCarMovementComponent::RotateMovement(float InputValue, AActor* WorldMesh)
 	}
 }
 ```
-</details>
+
 
 # Animations
 
@@ -124,8 +122,7 @@ For the wheels I used the transform nodes inside animation blueprint. As you can
 
 ![image](https://github.com/user-attachments/assets/ede39612-c085-4694-a1e2-1f57fac1ed9f)
 
-<details>
-  <summary>Code for Spinning the Wheel</summary>
+
   
 ```csharp
 void ACharacterInput::SpinWheel()
@@ -153,15 +150,14 @@ void ACharacterInput::SpinWheel()
 }
 
 ```
-</details>
+
 
 Then for other animations I made a state machine system where I switch them on/off with my bools.
 
 ![image](https://github.com/user-attachments/assets/98a39e88-4e9c-4345-90d9-9dc111b8e859)
 
 I changed the booleans in my script. Before showing you the boolean logic, I want to mention a problem I had. To detect if the car had hit something, I added a box collider as usual. However, whenever I pressed the play button in Unreal, the collision box just disappeared. After hours of trying, I gave up and decided to create my own 'collision box' by using a raycast from the car to detect if it hit something.
-<details>
-  <summary>Example of one of the bools</summary>
+
   
 ```csharp
 
